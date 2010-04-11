@@ -69,16 +69,22 @@
             property MUST NOT be <spanx style="verb">null</spanx>.</t>
 
             <t hangText="postedTime (string)">The time that the activity
-            occured, as a W3CDTF timestamp. This property MUST NOT be <spanx
+            occurred, as a W3CDTF timestamp. This property MUST NOT be <spanx
             style="verb">null</spanx>.</t>
 
             <t hangText="id (string)">A URI that serves as an identifier for
             this activity. This property MUST NOT be <spanx style="verb">null</spanx>.</t>
 
-            <t hangText="title (string)">A HTML representation of a natural
-            language sentence describing this activity. Consumers MAY use the
+            <t hangText="title (string)">An HTML representation of the natural
+            language title for this activity. Consumers MAY use the
             value of this field, if set, as a fallback for when none of the
-            provided verbs are recognised. This property MAY be <spanx
+            provided verbs are recognized. This property MAY be <spanx
+            style="verb">null</spanx> if the publisher does not wish to
+            provide a HTML representation.</t>
+			<t hangText="body (string)">An HTML representation of a natural
+            language describing this activity including visual elements such as thumbnails. 
+			Consumers MAY use the value of this field, if set, as a fallback for when none of the
+            provided verbs are recognized. This property MAY be <spanx
             style="verb">null</spanx> if the publisher does not wish to
             provide a HTML representation.</t>
           </list></t>
@@ -104,6 +110,8 @@
             <t hangText="permalinkURL (string)">The URL of a HTML page that
             represents this object. This property SHOULD NOT be <spanx
             style="verb">null</spanx>.</t>
+
+			<t hangText="picture (string)">The URL to a pictorial representation of the object.</t>
 
             <t hangText="objectTypes (array&lt;string&gt;)">The list of object
             type URIs for this object. These object types MUST all be
