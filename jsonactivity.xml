@@ -136,6 +136,12 @@
             this activity stream. This property MUST NOT be <spanx
             style="verb">null</spanx>.</t>
 
+			<t hangText="summary (string)">A human readable snippet of the content suitable for display on a browser.
+				 This property MAY be <spanx style="verb">null</spanx></t>
+				
+			<t hangText="content (string)">A human readable version of the entire content suitable for display on a browser.
+				 This property MAY be <spanx style="verb">null</spanx></t>
+
             <t hangText="published (string)">The time that this object was
             published, as a W3CDTF timestamp. This property MUST NOT be <spanx
             style="verb">null</spanx>.</t>
