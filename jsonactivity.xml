@@ -80,12 +80,12 @@
             <t hangText="id (string)">A URI that serves as an identifier for
             this activity. This property MUST NOT be <spanx style="verb">null</spanx>.</t>
 
-           <t hangText="permalinkURL (string)">The URL of a HTML page that
+           <t hangText="permalinkUrl (string)">The URL of a HTML page that
             represents this activity. This property SHOULD NOT be <spanx
             style="verb">null</spanx>.</t>
 			
-			<t hangText="iconURL (string)">The URL of an icon represents this activity. 
-				In Opensocial responses this property matches streamfaviconurl</t>
+			<t hangText="streamFaviconUrl (string)">The URL of an icon represents this activity. 
+				This property MAY be <spanx style="verb">null</spanx> if there are no specific icons per activity type for this activity publisher</t>
 
             <t hangText="title (string)">An HTML representation of the natural
             language title for this activity. Consumers MAY use the
