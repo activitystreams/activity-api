@@ -26,28 +26,6 @@
 
     <author fullname="Will Norris" initials="W." surname="Norris">
       <organization>Google</organization>
-
-      <address>
-        <postal>
-          <street></street>
-
-          <city></city>
-
-          <region></region>
-
-          <code></code>
-
-          <country></country>
-        </postal>
-
-        <phone></phone>
-
-        <facsimile></facsimile>
-
-        <email></email>
-
-        <uri></uri>
-      </address>
     </author>
 
     <date />
@@ -425,7 +403,7 @@
       </reference>
 
       <reference anchor="Atom Activity Extensions 1.0"
-                 target="http://www.activitystrea.ms/spec/1.0/atom-activity-01.html">
+                 target="http://activitystrea.ms/head/atom-activity.html">
         <front>
           <title>Atom Activity Extensions (Draft)</title>
         </front>
