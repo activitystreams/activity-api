@@ -307,13 +307,13 @@
 	},
 	"entries": 
 	[{
-		"id": "http://site.com/activity/608201527_118700288155735",
+		"id": "http://bestsite.com/activity/608201527_118700288155735",
 		"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155735", 
 		"postedTime": "2010-04-27T06:02:36+0000", 
 		"title" : "Willy Wonka just RSVPed for Mozilla Labs Night - April 2010",
 		"actor" : { "id": "http://bestsite.com/user/608201527"},
 		"verb" : ["http://activitystrea.ms/schema/1.0/rsvp-yes"],
-		"object" : [
+		"object" : 
 		{
 			"id": "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/",
 			"displayName" : "Mozilla Labs Meetup (Mountain View, CA)",
@@ -328,8 +328,7 @@
 				"region": "CA",
 				"country" : "US"
 			}
-		}
-		],
+		},
 		"serviceProvider" :
 		{
 			"permalinkUrl" : "http://www.meetup.com",
@@ -338,21 +337,20 @@
 		}
 	},
 	{
-		"id": "http://site.com/activity/608201527_118700288155740",
+		"id": "http://bestsite.com/activity/608201527_118700288155740",
 		"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155740", 
 		"postedTime": "2010-04-25T06:02:36+0000", 
 		"title" : "Willy Wonka uploaded a photo to the Incredible Shots album on Flickr",
 		"actor" : { "id": "http://bestsite.com/user/608201527"},
 		"verb" : ["http://activitystrea.ms/schema/1.0/post"],
-		"object" : [
+		"object" :
 		{
 			"displayName" : "Burning Tree",
 			"permalinkUrl" : "http://www.flickr.com/willy/photo/29382938293",
 			"objectType": ["http://activitystrea.ms/schema/1.0/photo"],
 			"thumbnail" : "http://www.flickr.com/willy/photo/29382938293/small.jpg",
 			"fullImage" : "http://www.flickr.com/willy/photo/29382938293/large.jpg"
-		}
-			],
+		},
 		"target" : 
 		{
 			"permalinkUrl" : "http://www.flickr.com/willy/album/2323232",
