@@ -27,8 +27,8 @@
 
     <abstract>
       <t>The Activity Streams API Specification is designed to make it easy
-      for developers to publish and consume activities in a secure and
-      platform agnostic fashion.</t>
+      for developers transmit and receive activities about a subject in a
+      secure and platform agnostic fashion.</t>
 
       <t>The focus on simplicity and legibility has driven us to model this
       API as a <xref target="REST"></xref>(RESTful) endpoint which emits <xref
@@ -44,16 +44,17 @@
 
   <middle>
     <section title="Introduction">
-      <t>This specification describes how to model, parse and transmit
-      activities using a simple, secure, generic <xref target="REST"></xref>
-      endpoint. Activities are modeled according to the concepts defined in
-      Section 3 of <xref target="Atom Activity Extensions 1.0"></xref></t>
+      <t>This specification describes how to model, transmit, receive and
+      parse activities using a simple, secure, generic <xref
+      target="REST"></xref> endpoint. Activities are modeled according to the
+      concepts defined in Section 3 of <xref
+      target="Atom Activity Extensions 1.0"></xref></t>
 
       <t>Before you get started, we recommend you review the <xref
       target="Example"></xref></t>
     </section>
 
-    <section title="Workflow">
+    <section title="Activity Retrieval Workflow">
       <t>The very first step is to find the Activity Streams endpoint. A
       Consumer wishing to access a user's Activity Stream can start with an
       Initial Identifier for the Service Provider containing the user's data,
@@ -271,89 +272,87 @@
         element schema as defined in Section 7.4</preamble>
 
         <artwork><![CDATA[
+{
+	"id": "http://www.bestsite.com/willy9/stream",
+	"language" : "en-US",
+	"displayName" : "Willy Wonka's Activity Stream on The Best Site",
+	"subject" :
+	{
+		"id": "http://bestsite.com/user/608201527",
+		"displayName" : "Willy Wonka",
+		"image" : "http://www.bestsite.com/willy9/picture",
+		"permalinkUrl" : "http://www.bestsite.com/willy9",
+		"objectType": ["http://activitystrea.ms/schema/1.0/person"]
+	},
+	"generator" :
+	{
+		"permalinkUrl" : "http://www.bestsite.com",
+		"displayName" : "The Best Site"
+	},
+	"entries": 
+	[{
+		"id": "http://site.com/activity/608201527_118700288155735",
+		"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155735", 
+		"postedTime": "2010-04-27T06:02:36+0000", 
+		"summary" : "Willy Wonka just RSVPed for Mozilla Labs Night - April 2010",
+		"actor" : { "id": "http://bestsite.com/user/608201527"},
+		"verb" : ["http://activitystrea.ms/schema/1.0/rsvp-yes"],
+		"object" : [
 		{
-		"id": "http://www.bestsite.com/willy9/stream",
-		"language" : "en-US",
-		"displayName" : "Willy Wonka's Activity Stream on The Best Site",
-		"subject" :
-		{
-			"id": "http://bestsite.com/user/608201527",
-			"displayName" : "Willy Wonka",
-			"image" : "http://www.bestsite.com/mkeller9/picture",
-			"permalinkUrl" : "http://www.bestsite.com/willy9",
-			"objectType": ["http://activitystrea.ms/schema/1.0/person"]
-		},
-		"generator" :
-		{
-			"permalinkUrl" : "http://www.bestsite.com",
-			"displayName" : "The Best Site"
-		},
-		"entries": 
-		[{
-			"id": "http://site.com/activity/608201527_118700288155735",
-			"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155735", 
-			"postedTime": "2010-04-27T06:02:36+0000", 
-			"summary" : "Willy Wonka just RSVPed for Mozilla Labs Night - April 2010",
-			"actor" : { "id": "http://bestsite.com/user/608201527"},
-			"verb" : ["http://activitystrea.ms/schema/1.0/rsvp-yes"],
-			"object" : [
-				{
-					"id": "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/",
-					"displayName" : "Mozilla Labs Meetup (Mountain View, CA)",
-					"permalinkUrl" : "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/i3/site",
-					"objectType": ["http://activitystrea.ms/schema/1.0/event", "http://events.com/schema/1.0/meetup"],
-					"dtStart" : "2010-04-29T06:02:00+0000",
-					"location" : {
-						"id": "http://www.mozilla.org/locations/mtv",
-						"displayName" : "Mozilla Office in Mountain View, CA",
-						"streetAddress": "650 Castro St",
-						"locality" : "Mountain View",
-						"region": "CA",
-						"country" : "US"
-					}
-				}
-			],
-			"serviceProvider" :
-			{
-				"permalinkUrl" : "http://www.meetup.com",
-				"displayName" : "Meetup",
-				"icon" : "http://photos-b.ak.fbcdn.net/photos-ak-sf2p/v43/97/2403839689/app_2_2403839689_2546.gif"
+			"id": "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/",
+			"displayName" : "Mozilla Labs Meetup (Mountain View, CA)",
+			"permalinkUrl" : "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/i3/site",
+			"objectType": ["http://activitystrea.ms/schema/1.0/event", "http://events.com/schema/1.0/meetup"],
+			"dtStart" : "2010-04-29T06:02:00+0000",
+			"location" : {
+				"id": "http://www.mozilla.org/locations/mtv",
+				"displayName" : "Mozilla Office in Mountain View, CA",
+				"streetAddress": "650 Castro St",
+				"locality" : "Mountain View",
+				"region": "CA",
+				"country" : "US"
 			}
-		},
+		}
+		],
+		"serviceProvider" :
 		{
-			"id": "http://site.com/activity/608201527_118700288155740",
-			"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155740", 
-			"postedTime": "2010-04-25T06:02:36+0000", 
-			"summary" : "Willy Wonka uploaded a photo to the Incredible Shots album on Flickr",
-			"actor" : { "id": "http://bestsite.com/user/608201527"},
-			"verb" : ["http://activitystrea.ms/schema/1.0/post"],
-			"object" : [
-				{
-					"displayName" : "Burning Tree",
-					"permalinkUrl" : "http://www.flickr.com/willy/photo/29382938293",
-					"objectType": ["http://activitystrea.ms/schema/1.0/photo"],
-					"thumbnail" : "http://www.flickr.com/willy/photo/29382938293/small.jpg",
-					"fullImage" : "http://www.flickr.com/willy/photo/29382938293/large.jpg"
-				}
+			"permalinkUrl" : "http://www.meetup.com",
+			"displayName" : "Meetup",
+			"icon" : "http://photos-b.ak.fbcdn.net/photos-ak-sf2p/v43/97/2403839689/app_2_2403839689_2546.gif"
+		}
+	},
+	{
+		"id": "http://site.com/activity/608201527_118700288155740",
+		"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155740", 
+		"postedTime": "2010-04-25T06:02:36+0000", 
+		"summary" : "Willy Wonka uploaded a photo to the Incredible Shots album on Flickr",
+		"actor" : { "id": "http://bestsite.com/user/608201527"},
+		"verb" : ["http://activitystrea.ms/schema/1.0/post"],
+		"object" : [
+		{
+			"displayName" : "Burning Tree",
+			"permalinkUrl" : "http://www.flickr.com/willy/photo/29382938293",
+			"objectType": ["http://activitystrea.ms/schema/1.0/photo"],
+			"thumbnail" : "http://www.flickr.com/willy/photo/29382938293/small.jpg",
+			"fullImage" : "http://www.flickr.com/willy/photo/29382938293/large.jpg"
+		}
 			],
-			"target" : 
-			{
-				"permalinkUrl" : "http://www.flickr.com/willy/album/2323232",
-				"displayName" : "Incredible Shots",		
-				"thumbnail" : "http://www.flickr.com/willy/photo/29382938293/small.jpg",
-				"objectType": ["http://activitystrea.ms/schema/1.0/photo-album"]
-			},
-			"serviceProvider" :
-			{
-				"permalinkUrl" : "http://www.flickr.com",
-				"displayName" : "Flickr",
-				"icon" : "http://www.flickr.com/favicon.ico"
-			}
-
+		"target" : 
+		{
+			"permalinkUrl" : "http://www.flickr.com/willy/album/2323232",
+			"displayName" : "Incredible Shots",		
+			"thumbnail" : "http://www.flickr.com/willy/photo/29382938293/small.jpg",
+			"objectType": ["http://activitystrea.ms/schema/1.0/photo-album"]
+		},
+		"serviceProvider" :
+		{
+			"permalinkUrl" : "http://www.flickr.com",
+			"displayName" : "Flickr",
+			"icon" : "http://www.flickr.com/favicon.ico"
 		}
-		]
-		}
-	]]></artwork>
+	}]
+}
+]]></artwork>
 
         <postamble>Note that we do not need to keep detailing the actor
         properties because they were already presented in the subject. Also
