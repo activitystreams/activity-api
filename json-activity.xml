@@ -95,6 +95,14 @@
         documented for human consumption by the Service Provider in their API
         documentation. The documentation MUST include the version of the
         Activity Streams API supported. The current version is 0.1</t>
+
+        <t><figure>
+            <artwork><![CDATA[------------
+|
+
+
+]]></artwork>
+          </figure></t>
       </section>
 
       <section title="Retrieval of Activities">
