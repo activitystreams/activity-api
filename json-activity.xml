@@ -28,7 +28,7 @@
       <organization>Google</organization>
     </author>
 
-    <date />
+    <date day="12" month="May" year="2010" />
 
     <abstract>
       <t>The Activity Streams API Specification is designed to make it easy
@@ -53,7 +53,7 @@
       parse activities using a simple, secure, generic <xref
       target="REST"></xref> endpoint. Activities are modeled according to the
       concepts defined in Section 3 of <xref
-      target="Atom Activity Extensions 1.0"></xref></t>
+      target="Atom_Activity_Extensions_1_0"></xref></t>
 
       <t>Before you get started, we recommend you review the <xref
       target="Example"></xref></t>
@@ -82,14 +82,14 @@
       <t>If the Consumer wishes to maintain an in sync copy of the data or get
       new activities as soon as they are available POSTed to them via web
       hooks they should subscribe via the <xref
-      target="Auth-API-Push 0.1"></xref></t>
+      target="Auth_API_Push_0_1"></xref></t>
 
       <t>The following sections detail each of these steps.</t>
 
       <section title="Discovery">
         <t>Providers who support this specification SHOULD promote their
         conformance by making the Activity Stream API endpoint discoverable
-        from the root of the domain using <xref target="XRD 1.0"></xref>. The
+        from the root of the domain using <xref target="XRD_1_0"></xref>. The
         API is identified by the Service Type <spanx style="verb">http://activitystrea.ms/api/0.1</spanx>
         In addition, the url for the Activity Streams end point MUST be
         documented for human consumption by the Service Provider in their API
@@ -97,8 +97,7 @@
         Activity Streams API supported. The current version is 0.1</t>
 
         <t><figure>
-            <artwork><![CDATA[------------
-|
+            <artwork><![CDATA[
 
 
 ]]></artwork>
@@ -112,9 +111,9 @@
         query string parameters to the Base URL as part of the request, as
         specified in section 5.1 [TODO] Additionally, authentication
         information MUST be sent using OAuth 2.0 Protocol as defined in <xref
-        target="OAuth 2.0"></xref> for protected resources. For details on
+        target="OAuth_2_0"></xref> for protected resources. For details on
         declaring the end point as a protected resource see section 6 of <xref
-        target="OAuth 2.0"></xref></t>
+        target="OAuth_2_0"></xref></t>
       </section>
 
       <section title="Authentication and Authorization">
@@ -135,7 +134,7 @@
         not considered the most efficient for keeping multiple repositories of
         data in synch. The Activity Streams endpoint SHOULD support
         subscriptions so consumers can enjoy near real time updates without
-        much expense using <xref target="Auth-API-Push 0.1"></xref></t>
+        much expense using <xref target="Auth_API_Push_0_1"></xref></t>
       </section>
 
       <section title="Creation of Activities">
@@ -144,9 +143,9 @@
         requests to the Service Provider are made as HTTP POST operations on
         the base URL described in section 2.1. Additionally, authentication
         information MUST be sent using OAuth 2.0 Protocol as defined in <xref
-        target="OAuth 2.0"></xref>. For details on declaring the end point as
+        target="OAuth_2_0"></xref>. For details on declaring the end point as
         a protected resource see section 6 of <xref
-        target="OAuth 2.0"></xref></t>
+        target="OAuth_2_0"></xref></t>
 
         <t>The Activity Streams endpoint can also be invoked using POST to
         create new activity entries on the Service Provider TODO: Add more
@@ -168,50 +167,56 @@
             <t hangText="id (string)">A URI that serves as an identifier for
             this activity. If not present then the permalinkUrl will be used
             in its place. For the full definition see Section 3.1.1 of <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+            target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="streamFaviconUrl (string)">The URL of an icon
             represents this activity. This property MAY be <spanx
-            style="verb">null</spanx> if there are no specific icons per
-            activity type for this activity publisher</t>
+            style="verb">null</spanx> as defined in Section 3.1.2 of <xref
+            target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="postedTime (string)">The time that the activity
             occurred, as a W3CDTF timestamp as defined in Section 3.1.3 of
-            <xref target="Atom Activity Extensions 1.0"></xref></t>
+            <xref target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="actor (Object)">The actor of this activity as defined
             in Section 3.1.4 of <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+            target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="verb (array&lt;string&gt;)">The list of verb URIs for
             this activity as defined in Section 3.1.5 of <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+            target="Atom_Activity_Extensions_1_0"></xref>If there is only a
+            single verb then the name of the verb can be placed as the value
+            for the "verb" property. Example: "verb" : "post"</t>
 
             <t hangText="object (Object)">The object of this activity as
             defined in Section 3.1.6 <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+            target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="target (Object)">The target of this activity as
             defined in Section 3.1.7 <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+            target="Atom_Activity_Extensions_1_0"></xref></t>
+
+            <t hangText="generator (Object)">The application which created the
+            activity as defined in Section 3.1.8 <xref
+            target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="permalinkUrl (string)">The URL of a HTML page that
             represents this activity as defined in Section 3.1.9 of <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+            target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="title (string)">An HTML representation of the natural
             language title for this activity as defined in Section 3.1.10 of
-            <xref target="Atom Activity Extensions 1.0"></xref></t>
+            <xref target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="body (string)">An HTML representation of a natural
             language describing this activity including visual elements such
             as thumbnails as defined in Section 3.1.11 of <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+            target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="privacy (array&lt;string&gt;)">An array of
             identifiers which describe how the consumer can deliver the
             updates as defined in Section 3.1.12 of <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+            target="Atom_Activity_Extensions_1_0"></xref></t>
           </list></t>
 
         <t>If additional properties are present in an Activity, they MUST be
@@ -224,82 +229,131 @@
         additional properties that are specific to the object type in
         question.</t>
 
-        <t>Properties:</t>
+          <t>Properties:</t>
 
-        <t><list style="hanging">
-            <t hangText="id (string)">Unique identifier for the object. If not
-            present in the JSON response, assume it matches the permalinkURL.
-            For more details on the format for the id see Section 3.2.1 on
-            <xref target="Atom Activity Extensions 1.0"></xref></t>
+          <t><list style="hanging">
+              <t hangText="id (string)">Unique identifier for the object. If
+              not present in the JSON response, assume it matches the
+              permalinkURL. For more details on the format for the id see
+              Section 3.2.1 on <xref
+              target="Atom_Activity_Extensions_1_0"></xref></t>
 
-            <t hangText="displayName (string)">Label for the object meant for
-            human consumption. For more details on the displayName see Section
-            3.2.2 on <xref target="Atom Activity Extensions 1.0"></xref></t>
+              <t hangText="displayName (string)">Label for the object meant
+              for human consumption. For more details on the displayName see
+              Section 3.2.2 on <xref
+              target="Atom_Activity_Extensions_1_0"></xref></t>
 
-            <t hangText="summary (string)">Description or snippet of the
-            object if this textual. For more details see Section 3.2.3 on
-            <xref target="Atom Activity Extensions 1.0"></xref></t>
+              <t hangText="summary (string)">Description or snippet of the
+              object if this textual. For more details see Section 3.2.3 on
+              <xref target="Atom_Activity_Extensions_1_0"></xref></t>
 
-            <t hangText="permalinkUrl (string)">Link to human readable
-            representation of the object. If the id is not present, then this
-            field will be considered the id. For more details see Section
-            3.2.5 on <xref target="Atom Activity Extensions 1.0"></xref></t>
+              <t hangText="image (string)">Representative image as described
+              in Section 3.2.4 of <xref
+              target="Atom_Activity_Extensions_1_0"></xref></t>
 
-            <t hangText="image (string)">Representative image as described in
-            Section 3.2.4 of <xref
-            target="Atom Activity Extensions 1.0"></xref></t>
+              <t hangText="permalinkUrl (string)">Link to human readable
+              representation of the object. If the id is not present, then
+              this field will be considered the id. For more details see
+              Section 3.2.5 on <xref
+              target="Atom_Activity_Extensions_1_0"></xref></t>
 
-            <t hangText="objectType (array&lt;string&gt;)"><xref
-            target="Atom Activity Extensions 1.0"></xref>An array of URIs
-            which identify the object type. For more details see Section
-            3.2.6</t>
-          </list></t>
+              <t hangText="objectType (array&lt;string&gt;)"><xref
+              target="Atom_Activity_Extensions_1_0"></xref>An array of URIs
+              which identify the object type. Example: "objectType" :
+              [{"http://www.maps.com/schema/earth-aerial-photo", "photo"}] For
+              more details see Section 3.2.6. If there is only one objectType
+              the publisher CAN place the URI directly inside objectType and
+              not use an array. Example: "objectType" : "photo"</t>
+            </list></t>
+            
+            <t>Action Properties:</t>
+              <section title="Actions">
+                <t>This is a list of all the actions which can be performed on a given activity by humans. This list is represented as an array</t>
+                <t>Properties of an ActionLink</t>
+                <t><list style="hanging">
+                  <t hangText="title">Human readable text describing the action. Example: "Share with boingy.com !""</t>
+                  <t hangText="postUrl (string)">URL to the human readable page where the end user can engage in the action</t>
+                  <t hangText="verb">If the action will result in an in-reply-to activity then this is the verb that in reply to activity will have. If not present defaults to "post"</t>
+                  <t hangText="objectType">If the action will result in an in-reply-to activity then this is the objectType that in reply to activity will have. Ex: "review". If not present its a typeless object.</t>
+                  <t hangText="actionLink">This is the end point which allows programmatic access to perform the action. Example: Adding a comment. TODO: Once the section on publishing activities is written then refer to it from here as it should be done in the same fashion but passing the id of activity on which we are acting upon.</t>
+                </list></t>
+              </section>
+              <section title="Reactions">
+                <t>This property is an ActivityStream itself where the subject is the parent activity. The stream should only contain activities done in response to this activity.</t>
+              </section>            
+        </section>
+
+        <section title="ActivityStream">
+          <t>An activity stream is a collection of activities. Often these
+          activities are related in some way, such as being by the same
+          actor.</t>
+
+          <t>An ActivityStream has the following properties:</t>
+
+          <t><list style="hanging">
+              <t hangText="title (string)">A human-readable name for this
+              stream. This property MAY be <spanx style="verb">null</spanx> if
+              the stream has no name.</t>
+
+              <t hangText="lang">The language used to generate the summary and
+              content sections of the activities.</t>
+
+              <t hangText="items (array&lt;Activity&gt;)">The activities
+              comprising this stream. This property MUST NOT be <spanx
+              style="verb">null</spanx>. Items should be display in reverse
+              chronological order.</t>
+
+              <t hangText="id (string)">A URI that serves as an identifier for
+              this activity stream. This property MUST NOT be <spanx
+              style="verb">null</spanx>.</t>
+
+              <t hangText="subject (object)">If this stream is considered to
+              be about a specific object -- usually a Person -- the publisher
+              SHOULD include the object representation for the subject. If
+              included then only the minimal representation is necessary in
+              subsequent references. Generally this is the actor of the
+              activities.</t>
+            </list></t>
+
+          <section anchor="ActivityStream.JSON-C" title="JSON-C Compatibility">
+            <t>For an Activity Stream API, the activity stream MUST be
+            considered the <spanx style="verb">data</spanx> element in <xref
+            target="JSON-C"></xref>. Several of the properties above follow
+            the JSON-C style guide. In addition there are several other
+            properties which publishers CAN use to provide additional
+            information</t>
+
+            <t><list style="hanging">
+                <t hangText="Link Properties">selfLink, nextLink,
+                previousLink, editLink</t>
+
+                <t hangText="Paging Properties">currentItemCount,
+                itemsPerPage, startIndex, totalItems,
+                pagingLinkTemplate,pageIndex, totalPages</t>
+
+                <t hangText="Errors">If you wish to report errors then your
+                Activity Stream API response should include an encompassing
+                object</t>
+              </list></t>
+
+            <t>JSON-C properties which are not recommended to be used in an
+            Activity Stream API are: updated, deleted and kind</t>
+          </section>
+        </section>
       </section>
 
-      <section title="ActivityStream">
-        <t>An activity stream is a collection of activities. Often these
-        activities are related in some way, such as being by the same
-        actor.</t>
+      <section anchor="Example" title="Activity Stream API Sample Response">
+        <figure>
+          <preamble>Here is a (non-normative) example of what a response from
+          the API could look like. Note that the <xref target="JSON"></xref>
+          format follows the <xref target="Portable_Contacts"></xref> address
+          element schema as defined in Section 7.4</preamble>
 
-        <t>An ActivityStream has the following properties:</t>
-
-        <t><list style="hanging">
-            <t hangText="displayName (string)">A human-readable name for this
-            stream. This property MAY be <spanx style="verb">null</spanx> if
-            the stream has no name.</t>
-
-            <t hangText="language">The language used to generate the summary
-            and content sections of the activities.</t>
-
-            <t hangText="entries (array&lt;Activity&gt;)">The activities
-            comprising this stream. This property MUST NOT be <spanx
-            style="verb">null</spanx>.</t>
-
-            <t hangText="id (string)">A URI that serves as an identifier for
-            this activity stream. This property MUST NOT be <spanx
-            style="verb">null</spanx>.</t>
-
-            <t hangText="subject (string)">If this stream is considered to be
-            about a specific object -- usually a Person -- the publisher
-            SHOULD include the object representation for the subject. If
-            included then only the minimal representation is necessary in
-            subsequent references.</t>
-          </list></t>
-      </section>
-    </section>
-
-    <section anchor="Example" title="Activity Stream API Sample Response">
-      <figure>
-        <preamble>Here is a (non-normative) example of what a response from
-        the API could look like. Note that the <xref target="JSON"></xref>
-        format follows the <xref target="Portable Contacts"></xref> address
-        element schema as defined in Section 7.4</preamble>
-
-        <artwork><![CDATA[
+          <artwork><![CDATA[
 {
 	"id": "http://www.bestsite.com/willy9/stream",
-	"language" : "en-US",
-	"displayName" : "Willy Wonka's Activity Stream on The Best Site",
+	"lang" : "en-US",
+	"title" : "Willy Wonka's Activity Stream on The Best Site",
 	"subject" :
 	{
 		"id": "http://bestsite.com/user/608201527",
@@ -313,7 +367,7 @@
 		"permalinkUrl" : "http://www.bestsite.com",
 		"displayName" : "The Best Site"
 	},
-	"entries": 
+	"items": 
 	[{
 		"id": "http://bestsite.com/activity/608201527_118700288155735",
 		"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155735", 
@@ -376,16 +430,30 @@
 }
 ]]></artwork>
 
-        <postamble>Note that we do not need to keep detailing the actor
-        properties because they were already presented in the subject. Also
-        note that the "id" is optional. When the "id" is not present we assume
-        the value of "permalinkUrl" can be used instead</postamble>
-      </figure>
-    </section>
+          <postamble>Note that we do not need to keep detailing the actor
+          properties because they were already presented in the subject. Also
+          note that the "id" is optional. When the "id" is not present we
+          assume the value of "permalinkUrl" can be used instead</postamble>
+        </figure>
+      </section>
   </middle>
 
   <back>
     <references title="Normative References">
+      <reference anchor="JSONSchema"
+                 targte="http://groups.google.com/group/json-schema/web/json-schema-proposal-working-draft">
+        <front>
+          <title>JSON Schema</title>
+        </front>
+      </reference>
+
+      <reference anchor="JSON-C"
+                 targte="http://google-styleguide.googlecode.com/svn/trunk/jsoncstyleguide.html">
+        <front>
+          <title>JSON-C Style Guide</title>
+        </front>
+      </reference>
+
       <reference anchor="REST"
                  targte="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">
         <front>
@@ -400,7 +468,7 @@
         </front>
       </reference>
 
-      <reference anchor="XRD 1.0"
+      <reference anchor="XRD_1_0"
                  target="http://www.oasis-open.org/committees/download.php/36473/xrd-1.0-wd14.html">
         <front>
           <title>Extensible Resource Descriptor (XRD) Version 1.0 Draft
@@ -408,28 +476,28 @@
         </front>
       </reference>
 
-      <reference anchor="Atom Activity Extensions 1.0"
+      <reference anchor="Atom_Activity_Extensions_1_0"
                  target="http://activitystrea.ms/head/atom-activity.html">
         <front>
           <title>Atom Activity Extensions (Draft)</title>
         </front>
       </reference>
 
-      <reference anchor="Portable Contacts"
+      <reference anchor="Portable_Contacts"
                  target="http://www.portablecontacts.net/draft-spec.html">
         <front>
           <title>Portable Contacts 1.0 Draft C</title>
         </front>
       </reference>
 
-      <reference anchor="OAuth 2.0"
+      <reference anchor="OAuth_2_0"
                  target="http://tools.ietf.org/id/draft-hammer-oauth2-00.txt">
         <front>
           <title>OAuth 2.0 Protocol (Draft)</title>
         </front>
       </reference>
 
-      <reference anchor="Auth-API-Push 0.1">
+      <reference anchor="Auth_API_Push_0_1">
         <front>
           <title>OAuth API Push Protocol 0.1 (new)</title>
         </front>
