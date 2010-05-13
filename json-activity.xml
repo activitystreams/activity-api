@@ -36,7 +36,7 @@
       secure and platform agnostic fashion.</t>
 
       <t>The focus on simplicity and legibility has driven us to model this
-      API as a <xref target="REST"></xref>(RESTful) endpoint which emits <xref
+      API as a <xref target="REST"></xref> endpoint which emits <xref
       target="JSON"></xref></t>
     </abstract>
 
@@ -56,7 +56,8 @@
       target="Atom_Activity_Extensions_1_0"></xref></t>
 
       <t>Before you get started, we recommend you review the <xref
-      target="Example"></xref></t>
+      target="Example"></xref> at the end of the specification which is self descriptive.</t>
+      <t>TODO: Link to JSON Schema representation of the specification.</t>
     </section>
 
     <section title="Activity Workflow">
@@ -64,7 +65,7 @@
       Consumer wishing to access a user's Activity Stream can start with an
       Initial Identifier for the Service Provider containing the user's data,
       usually provided by the user. In most cases, this may be the domain name
-      of the Service Provider's web site, such as bestsite.com. Consumers can
+      of the Service Provider's web site, such as "bestsite.com". Consumers can
       then perform Discovery on the Initial Identifier to determine where the
       Activity Streams endpoint for this Service Provider resides. If
       successful, the Consumer may then attempt to request information from
@@ -96,12 +97,16 @@
         documentation. The documentation MUST include the version of the
         Activity Streams API supported. The current version is 0.1</t>
 
-        <t><figure>
+        <figure>
             <artwork><![CDATA[
-
-
+              <?xml version='1.0'?>
+              <XRD xmlns='http://docs.oasis-open.org/ns/xri/xrd-1.0'>
+              	<Subject>acct:willy@bestsite.com</Subject>
+              	<Alias>http://www.bestsite.com/willy</Alias>
+              	<Link rel='http://activitystrea.ms/api/0.1' href='http://www.bestsite.com/willy/stream' type='application/json'/>
+              </XRD>
 ]]></artwork>
-          </figure></t>
+          </figure>
       </section>
 
       <section title="Retrieval of Activities">
@@ -109,7 +114,7 @@
         HTTP GET operations on a URL deriving form the base URL described in
         section 2.1. Consumers MAY append additional path information and/or
         query string parameters to the Base URL as part of the request, as
-        specified in section 5.1 [TODO] Additionally, authentication
+        specified in section X.X [TODO] Additionally, authentication
         information MUST be sent using OAuth 2.0 Protocol as defined in <xref
         target="OAuth_2_0"></xref> for protected resources. For details on
         declaring the end point as a protected resource see section 6 of <xref
@@ -118,7 +123,7 @@
 
       <section title="Authentication and Authorization">
         <t>The activities returned from the Activity Stream endpoint MAY
-        contain a mix of public and private data. [TODO: Example]. If Service
+        contain a mix of public and private data. If Service
         Providers wish to make some response data publicly available and also
         provide additional info given the proper authorization credentials,
         they SHOULD provide a 200 OK response to requests without
@@ -128,17 +133,17 @@
       </section>
 
       <section title="Synchronization">
-        <t>In order to keep the data synchronized it is possible to repeatedly
-        invoke the Activity Streams endpoint using GET and passing
-        if-modified-since headers. This concept is known as polling and it is
+        <t>In order to keep the data synchronized it is possible to invoke repeatedly 
+          the Activity Streams endpoint using GET and passing if-modified-since headers. 
+          This concept is known as polling and it is
         not considered the most efficient for keeping multiple repositories of
-        data in synch. The Activity Streams endpoint SHOULD support
-        subscriptions so consumers can enjoy near real time updates without
+        data in sync. The Activity Streams endpoint SHOULD support
+        subscriptions so consumers can receive near real time updates without
         much expense using <xref target="Auth_API_Push_0_1"></xref></t>
       </section>
 
       <section title="Creation of Activities">
-        <t>This section describes how activities by an external generator on
+        <t>This section describes how to publish activities by an external generator on
         behalf of the user on a given Service Provider. All content creation
         requests to the Service Provider are made as HTTP POST operations on
         the base URL described in section 2.1. Additionally, authentication
@@ -147,9 +152,16 @@
         a protected resource see section 6 of <xref
         target="OAuth_2_0"></xref></t>
 
-        <t>The Activity Streams endpoint can also be invoked using POST to
-        create new activity entries on the Service Provider TODO: Add more
-        details</t>
+        <t>Parameters:</t>
+        <t>
+        <list style="hanging">
+          <t hangText="title (string)">Title or comment for the activity provided by the user</t>
+          <t hangText="postedTime (string)">This can be specified for backdated activities.</t>
+          <t hangText="object (JSON Object)">JSON representation of the object which SHOULD include: id, permalinkUrl and 
+            displayName and MAY include any other object properties such as thumbnailUrl</t>
+        </list>
+        </t>
+        <t>The activity actor and generator are optional. If the Service Provider uses OAuth then this information can be obtained from the access token</t>
       </section>
     </section>
 
@@ -469,10 +481,9 @@
       </reference>
 
       <reference anchor="XRD_1_0"
-                 target="http://www.oasis-open.org/committees/download.php/36473/xrd-1.0-wd14.html">
+                 target="http://docs.oasis-open.org/xri/xrd/v1.0/xrd-1.0.html">
         <front>
-          <title>Extensible Resource Descriptor (XRD) Version 1.0 Draft
-          14</title>
+          <title>Extensible Resource Descriptor (XRD) Version Committee Draft 02</title>
         </front>
       </reference>
 
