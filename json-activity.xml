@@ -102,7 +102,7 @@
   Content-Lenght: 100
 
   {
-    "openid": {"link" : "http://www.bestsite.com/openid"},
+    "openid": {"url" : "http://www.bestsite.com/openid"},
     "stream_get_json" : {"template": "http://www.bestsite.com/{uri}/stream"},
     ...
   }
@@ -234,7 +234,7 @@
       concepts from the activity streams data model in JSON.</t>
 
       <section title="Activity">
-        <t>An Activity represents an activity as defined by linkthe Activity
+        <t>An Activity represents an activity as defined by link the Activity
         Streams specifications.</t>
 
         <t>An Activity has the following properties:</t>
@@ -274,10 +274,6 @@
 
             <t hangText="generator (Object)">The application which created the
             activity as defined in Section 3.1.8 <xref
-            target="Atom_Activity_Extensions_1_0"></xref></t>
-
-            <t hangText="link (string)">The URL of a HTML page that represents
-            this activity as defined in Section 3.1.9 of <xref
             target="Atom_Activity_Extensions_1_0"></xref></t>
 
             <t hangText="title (string)">An HTML representation of the natural
@@ -325,7 +321,7 @@
             Section 3.2.4 of <xref
             target="Atom_Activity_Extensions_1_0"></xref></t>
 
-            <t hangText="link (string)">Link to human readable representation
+            <t hangText="permalinkUrl (string)">Link to human readable representation
             of the object. If the id is not present, then this field will be
             considered the id. For more details see Section 3.2.5 on <xref
             target="Atom_Activity_Extensions_1_0"></xref></t>
@@ -337,47 +333,40 @@
             more details see Section 3.2.6. If there is only one objectType
             the publisher CAN place the URI directly inside objectType and not
             use an array. Example: "objectType" : "photo"</t>
+
+            <t hangText="postedTime (string)">W3CDTF timestamp representing the time
+            when the object was created.</t>
+
+            <t hangText="owner (Object)">An optional property used to specify the
+            owner of the object if different than the actor of the activity.</t>
+
+            <t hangText="inResponseTo (Object)">If this activity was done in
+            response to another object then this is the location to syndicate
+            the object.</t>
+
+          <t hangText="actionLinks (array&lt;ActionLink&gt;)">This is a list of
+          all the actions which can be performed on a given activity by humans.
+          For more details see the <xref
+            target="ActionLink">ActionLink definition</xref>.
+          </t>
+
+          <t hangText="likes (ReactionActivityStream)">
+              This property is a list of all the likes
+          which were done in response to this object. The object is implied
+          to be the current object and the verb is "like".
+          For more details see the <xref target="ReactionActivityStream">
+          ReactionActivityStream definition</xref></t>
+
+          <t hangText="comments (ReplyStream)">This property is a list of
+          objects which were posted in reply to the current object such as
+          comments on a photo and a count for more details see the <xref
+            target="ReplyStream">ReplyStream definition</xref>. The reply does not have an inResponseTo
+          property because its implied that its in-reply-to the parent object.</t>
+
           </list></t>
 
-        <t>Action Properties:</t>
 
-        <section title="Actions">
-          <t>This is a list of all the actions which can be performed on a
-          given activity by humans. This list is represented as an array</t>
-
-          <t>Properties of an ActionLink</t>
-
-          <t><list style="hanging">
-              <t hangText="title">Human readable text describing the action.
-              Example: "Share with boingy.com !""</t>
-
-              <t hangText="postUrl (string)">URL to the human readable page
-              where the end user can engage in the action</t>
-
-              <t hangText="verb">If the action will result in an in-reply-to
-              activity then this is the verb that in reply to activity will
-              have. If not present defaults to "post"</t>
-
-              <t hangText="objectType">If the action will result in an
-              in-reply-to activity then this is the objectType that in reply
-              to activity will have. Ex: "review". If not present its a
-              typeless object.</t>
-
-              <t hangText="actionLink">This is the end point which allows
-              programmatic access to perform the action. Example: Adding a
-              comment. TODO: Once the section on publishing activities is
-              written then refer to it from here as it should be done in the
-              same fashion but passing the id of activity on which we are
-              acting upon.</t>
-            </list></t>
         </section>
-
-        <section title="Likes">
-          <t>This property is an ActivityStream itself where the subject is
-          the parent activity. The stream should only contain activities done
-          in response to this activity.</t>
-        </section>
-      </section>
 
       <section title="ActivityStream">
         <t>An activity stream is a collection of activities. Often these
@@ -411,6 +400,44 @@
             activities.</t>
           </list></t>
 
+      </section>
+
+    <section title="ActionLink" anchor="ActionLink">
+      <t>Properties of an ActionLink</t>
+
+      <t><list style="hanging">
+          <t hangText="title">Human readable text describing the action.
+          Example: "Share with boingy.com !""</t>
+
+          <t hangText="url (string)">URL to the human readable page
+          where the end user can engage in the action</t>
+        </list></t>
+    </section>
+
+
+    <section title="ReactionActivityStream" anchor="ReactionActivityStream">
+    <t>The Reaction Activity construct is the same as an Activity construct
+    but without an object property.</t>
+
+    <t><list style="hanging">
+        <t hangText="count">The total number of activities which were done
+        in response.</t>
+        <t hangText="items (array &lt;Activity&gt;)">An array of Activities
+        without any objects.</t>
+    </list></t>
+    </section>
+
+    <section title="ReplyStream" anchor="ReplyStream">
+
+    <t><list style="hanging">
+        <t hangText="count">The total number of replies</t>
+        <t hangText="items (array &lt;Object&gt;)">This array does not need
+        to include all the replies but MAY include a subset of replies.</t>
+    </list></t>
+    </section>
+
+    </section>
+
         <section anchor="ActivityStream.JSON-C" title="JSON-C Compatibility">
           <t>For an Activity Stream API, the activity stream MUST be
           considered the <spanx style="verb">data</spanx> element in <xref
@@ -434,9 +461,7 @@
           <t>JSON-C properties which are not recommended to be used in an
           Activity Stream API are: updated, deleted and kind</t>
         </section>
-      </section>
-    </section>
-
+        
     <section anchor="Example" title="Activity Stream API Sample Response">
       <figure>
         <preamble>Here is a (non-normative) example of what a response from
@@ -454,18 +479,18 @@
 		"id": "http://bestsite.com/user/608201527",
 		"name" : "Willy Wonka",
 		"image" : "http://www.bestsite.com/willy9/picture",
-		"link" : "http://www.bestsite.com/willy9",
+		"permalinkUrl" : "http://www.bestsite.com/willy9",
 		"objectType": ["http://activitystrea.ms/schema/1.0/person"]
 	},
 	"generator" :
 	{
-		"link" : "http://www.bestsite.com",
+		"permalinkUrl" : "http://www.bestsite.com",
 		"name" : "The Best Site"
 	},
 	"items": 
 	[{
 		"id": "http://bestsite.com/activity/608201527_118700288155735",
-		"link" : "http://www.bestsite.com/608201527/posts/118700288155735", 
+		"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155735",
 		"postedTime": "2010-04-27T06:02:36+0000", 
 		"title" : "Willy Wonka just RSVPed for Mozilla Labs Night - April 2010",
 		"actor" : { "id": "http://bestsite.com/user/608201527"},
@@ -474,7 +499,7 @@
 		{
 			"id": "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/",
 			"name" : "Mozilla Labs Meetup (Mountain View, CA)",
-			"link" : "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/i3/site",
+			"permalinkUrl" : "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/i3/site",
 			"objectType": "event",
 			"dtStart" : "2010-04-29T06:02:00+0000",
 			"location" : {
@@ -488,14 +513,14 @@
 		},
 		"serviceProvider" :
 		{
-			"link" : "http://www.meetup.com",
+			"permalinkUrl" : "http://www.meetup.com",
 			"name" : "Meetup",
 			"icon" : "http://photos-b.ak.fbcdn.net/photos-ak-sf2p/v43/97/2403839689/app_2_2403839689_2546.gif"
 		}
 	},
 	{
 		"id": "http://bestsite.com/activity/608201527_118700288155740",
-		"link" : "http://www.bestsite.com/608201527/posts/118700288155740", 
+		"permalinkUrl" : "http://www.bestsite.com/608201527/posts/118700288155740",
 		"postedTime": "2010-04-25T06:02:36+0000", 
 		"title" : "Willy Wonka uploaded a photo to the Incredible Shots album on Flickr",
 		"actor" : { "id": "http://bestsite.com/user/608201527"},
@@ -503,21 +528,21 @@
 		"object" :
 		{
 			"name" : "Burning Tree",
-			"link" : "http://www.flickr.com/willy/photo/29382938293",
+			"permalinkUrl" : "http://www.flickr.com/willy/photo/29382938293",
 			"objectType": ["http://activitystrea.ms/schema/1.0/photo"],
-			"thumbnail" : "http://www.flickr.com/willy/photo/29382938293/small.jpg",
-			"fullImage" : "http://www.flickr.com/willy/photo/29382938293/large.jpg"
+			"thumbnail" : {url: "http://www.flickr.com/willy/photo/29382938293/small.jpg"},
+			"fullImage" : {url: "http://www.flickr.com/willy/photo/29382938293/large.jpg"}
 		},
 		"target" : 
 		{
-			"link" : "http://www.flickr.com/willy/album/2323232",
+			"permalinkUrl" : "http://www.flickr.com/willy/album/2323232",
 			"name" : "Incredible Shots",		
-			"thumbnail" : "http://www.flickr.com/willy/photo/29382938293/small.jpg",
+			"thumbnail" : {url: "http://www.flickr.com/willy/photo/29382938293/small.jpg"},
 			"objectType": ["http://activitystrea.ms/schema/1.0/photo-album"]
 		},
 		"serviceProvider" :
 		{
-			"link" : "http://www.flickr.com",
+			"permalinkUrl" : "http://www.flickr.com",
 			"name" : "Flickr",
 			"icon" : "http://www.flickr.com/favicon.ico"
 		}
@@ -528,7 +553,7 @@
         <postamble>Note that we do not need to keep detailing the actor
         properties because they were already presented in the subject. Also
         note that the "id" is optional. When the "id" is not present we assume
-        the value of "link" can be used instead</postamble>
+        the value of "permalinkUrl" can be used instead</postamble>
       </figure>
     </section>
   </middle>
