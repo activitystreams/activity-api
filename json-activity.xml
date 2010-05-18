@@ -85,16 +85,11 @@
       <section title="Discovery">
         <t>Providers who support this specification SHOULD establish their
         conformance by making the Activity Stream API endpoint discoverable
-        from the root of the domain using LRDD-JRD
-        <ref anchor="http://openidconnect.com/#discovery"></ref>
-        The API is identified by the Service Type <spanx
-        style="verb">activitystream_get_json</spanx> In addition, the
-        url for the Activity Streams end point MUST be documented for human
-        consumption by the Service Provider in their API documentation. The
-        documentation MUST include the version of the Activity Streams API
-        supported. The current version is 0.1</t>
+        from the root of the domain using LRDD. 
+        
+        TODO: Define whether webfinger will be involved or just an LRDD processor.
 
-        <figure title="Discovery via LRDD/JRD">
+        <figure title="Sample discovery via LRDD/JRD Non Normative">
           <artwork>
   GET /.well-known/lrdd?format=json&amp;uri=http%3A%2F%2Fbestsite.com%2Fwilly9
   HTTP/1.1
@@ -108,11 +103,11 @@
 
   {
     "openid": {"link" : "http://www.bestsite.com/openid"},
-    "stream_get_json" : {"link": "http://www.bestsite.com/willy9/stream"},
+    "stream_get_json" : {"template": "http://www.bestsite.com/{uri}/stream"},
     ...
   }
         </artwork>
-        </figure>
+        </figure></t>
         <t>
       This allows for Consumers wishing to access a user's Activity Stream to
       start with an Initial Identifier such as the domain name of the Service
@@ -138,11 +133,15 @@
           <artwork>
   GET /willy9/stream HTTP /1.1
   Host: bestsite.com
+  Accept: application/json
+  Accept-Language: en-us,en;q=0.5
+
 
   -------------------------------------------------------
 
   HTTP/1.1 200 OK
   Content-Type: application/json
+  Date: Mon, 17 May 2010 03:49:19 GMT
   Content-Lenght: 400
 
   {
@@ -164,7 +163,28 @@
         info given the proper authorization credentials, they SHOULD provide a
         200 OK response to requests without authorization with a
         WWW-Authenticate header in the response indicating that additional
-        info is available via the specified authorization mechanisms.</t>
+        info may be available via the specified authorization mechanisms.</t>
+
+        <t>In this example below the endpoint can return public data invoked
+        using HTTP but if the Consumer has the appropriate credentials for the
+        user then it can also include private activities</t>
+
+        <figure title="Example: Endpoint returning partial set"><artwork>
+     HTTP/1.1 200 OK
+     WWW-Authenticate: Token realm='Service', error='token_missing'
+
+      {
+        "id": "http://www.bestsite.com/willy9/stream",
+        "lang" : "en-US",
+        "title" : "Willy Wonka's Activity Stream on The Best Site",
+        ...
+        "items" :[..]
+      }
+        </artwork></figure>
+        <t>If no access is possible without authorization then a 401 HTTP status
+        code and the WWW-Authenticate header will be sent in the response with
+        an empty body as described in section 6.1 of <xref anchor="OAuth_2_0">OAuth 2.0</xref>
+        </t>
       </section>
 
       <section title="Synchronization">
@@ -187,7 +207,10 @@
         on declaring the end point as a protected resource see section 6 of
         <xref target="OAuth_2_0"></xref></t>
 
-        <t>Parameters:</t>
+        <t>The basic algorithm for creating activities is to use the dot product
+        notation of the JSON properties as the POST parameters</t>
+
+        <t>Example:</t>
 
         <t><list style="hanging">
             <t hangText="title (string)">Title or comment for the activity
@@ -196,9 +219,8 @@
             <t hangText="postedTime (string)">This can be specified for
             backdated activities.</t>
 
-            <t hangText="object (JSON Object)">JSON representation of the
-            object which SHOULD include: id, link and title and
-            MAY include any other object properties such as thumbnailUrl</t>
+            <t hangText="object.displayName (string)">The display name for the
+            object</t>
           </list></t>
 
         <t>The activity actor and generator are optional. If the Service
@@ -447,13 +469,13 @@
 		"postedTime": "2010-04-27T06:02:36+0000", 
 		"title" : "Willy Wonka just RSVPed for Mozilla Labs Night - April 2010",
 		"actor" : { "id": "http://bestsite.com/user/608201527"},
-		"verb" : ["http://activitystrea.ms/schema/1.0/rsvp-yes"],
+		"verb" : ["rsvp-yes"],
 		"object" : 
 		{
 			"id": "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/",
 			"name" : "Mozilla Labs Meetup (Mountain View, CA)",
 			"link" : "http://www.meetup.com/Mozilla-Labs-Meetup/calendar/13194973/i3/site",
-			"objectType": ["http://activitystrea.ms/schema/1.0/event", "http://events.com/schema/1.0/meetup"],
+			"objectType": "event",
 			"dtStart" : "2010-04-29T06:02:00+0000",
 			"location" : {
 				"id": "http://www.mozilla.org/locations/mtv",
