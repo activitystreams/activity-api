@@ -183,7 +183,7 @@
         </artwork></figure>
         <t>If no access is possible without authorization then a 401 HTTP status
         code and the WWW-Authenticate header will be sent in the response with
-        an empty body as described in section 6.1 of <xref anchor="OAuth_2_0">OAuth 2.0</xref>
+        an empty body as described in section 6.1 of <xref target="OAuth_2_0">OAuth 2.0</xref>
         </t>
       </section>
 
