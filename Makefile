@@ -7,9 +7,9 @@ clean:
 prepare:
 	mkdir -p build
 
-html: prepare json-activity.xml
-	xml2rfc json-activity.xml build/json-activity.html
+html: prepare activity-api.xml
+	xml2rfc activity-api.xml build/activity-api.html
 
-txt: prepare json-activity.xml
-	xml2rfc json-activity.xml build/json-activity.txt
+txt: prepare activity-api.xml
+	xml2rfc activity-api.xml build/activity-api.txt
 
